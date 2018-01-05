@@ -6,6 +6,8 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+
 
 public class UnityChanController : MonoBehaviour
 {
@@ -39,6 +41,12 @@ public class UnityChanController : MonoBehaviour
     private bool isEnd = false;
 
 
+    //ゲーム終了時に表示するテキスト（追加）
+    private GameObject stateText;
+
+
+
+
 
 
     // Use this for initialization
@@ -57,94 +65,107 @@ public class UnityChanController : MonoBehaviour
 
         //Rigidbodyコンポーネントを取得（追加）
         this.myRigidbody = GetComponent<Rigidbody>();
+
+
+        //シーン中のstateTextオブジェクトを取得（追加）
+        this.stateText = GameObject.Find("GameResultText");
+
     }
 
 
-    void OnTriggerEnter(Collider other) {
 
-        //ゴール地点に到達した場合（追加）
-        if (other.gameObject.tag == "GoalTag")
+
+    // Update is called once per frame
+
+    void Update()
+    {
+
+
+        //ゲーム終了ならUnityちゃんの動きを減衰する（追加）
+        if (this.isEnd)
         {
-            this.isEnd = true;
-            //コインに衝突した場合（追加）
-            if (other.gameObject.tag == "CoinTag")
-            {
-                //接触したコインのオブジェクトを破棄（追加）
-                Destroy(other.gameObject);
-            }
-
+            this.forwardForce *= this.coefficient;
+            this.turnForce *= this.coefficient;
+            this.upForce *= this.coefficient;
+            this.myAnimator.speed *= this.coefficient;
         }
 
 
 
-        // Update is called once per frame
 
-        void Update()
+        //Unityちゃんに前方向の力を加える（追加）
+        this.myRigidbody.AddForce(this.transform.forward * this.forwardForce);
+
+
+        //Unityちゃんを矢印キーまたはボタンに応じて左右に移動させる（追加）
+        if (Input.GetKey(KeyCode.LeftArrow) && -this.movableRange < this.transform.position.x)
         {
+            //左に移動（追加）
+            this.myRigidbody.AddForce(-this.turnForce, 0, 0);
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) && this.transform.position.x < this.movableRange)
+        {
+            //右に移動（追加）
+            this.myRigidbody.AddForce(this.turnForce, 0, 0);
+
+        }
+
+        //Jumpステートの場合はJumpにfalseをセットする（追加）
+        if (this.myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
+        {
+            this.myAnimator.SetBool("Jump", false);
+        }
+
+        //ジャンプしていない時にスペースが押されたらジャンプする（追加）
+        if (Input.GetKeyDown(KeyCode.Space) && this.transform.position.y < 0.5f)
+        {
+            //ジャンプアニメを再生（追加）
+            this.myAnimator.SetBool("Jump", true);
+            //Unityちゃんに上方向の力を加える（追加）
+            this.myRigidbody.AddForce(this.transform.up * this.upForce);
 
 
-            //ゲーム終了ならUnityちゃんの動きを減衰する（追加）
-            if (this.isEnd)
+        }
+    }
+
+
+            void OnTriggerEnter(Collider other)
             {
-                this.forwardForce *= this.coefficient;
-                this.turnForce *= this.coefficient;
-                this.upForce *= this.coefficient;
-                this.myAnimator.speed *= this.coefficient;
-            }
 
-
-
-
-            //Unityちゃんに前方向の力を加える（追加）
-            this.myRigidbody.AddForce(this.transform.forward * this.forwardForce);
-
-
-            //Unityちゃんを矢印キーまたはボタンに応じて左右に移動させる（追加）
-            if (Input.GetKey(KeyCode.LeftArrow) && -this.movableRange < this.transform.position.x)
-            {
-                //左に移動（追加）
-                this.myRigidbody.AddForce(-this.turnForce, 0, 0);
-            }
-            else if (Input.GetKey(KeyCode.RightArrow) && this.transform.position.x < this.movableRange)
-            {
-                //右に移動（追加）
-                this.myRigidbody.AddForce(this.turnForce, 0, 0);
-
-            }
-
-            //Jumpステートの場合はJumpにfalseをセットする（追加）
-            if (this.myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
-            {
-                this.myAnimator.SetBool("Jump", false);
-            }
-
-            //ジャンプしていない時にスペースが押されたらジャンプする（追加）
-            if (Input.GetKeyDown(KeyCode.Space) && this.transform.position.y < 0.5f)
-            {
-                //ジャンプアニメを再生（追加）
-                this.myAnimator.SetBool("Jump", true);
-                //Unityちゃんに上方向の力を加える（追加）
-                this.myRigidbody.AddForce(this.transform.up * this.upForce);
-
-
-
-
-                //トリガーモードで他のオブジェクトと接触した場合の処理（追加）
-
+                                //障害物に衝突した場合
+                if (other.gameObject.tag == "CarTag" || other.gameObject.tag == "TrafficConeTag")
                 {
+                    this.isEnd = true;
+                    //stateTextにGAME OVERを表示（追加）
+                    this.stateText.GetComponent<Text>().text = "GAME OVER";
+                }
 
-                    //障害物に衝突した場合（追加）
-                    if (other.gameObject.tag == "CarTag" || other.gameObject.tag == "TrafficConeTag")
+
+                //ゴール地点に到達した場合（追加）
+                if (other.gameObject.tag == "GoalTag")
+                {
+                    this.isEnd = true;
+
+
+                    //stateTextにGAME CLEARを表示（追加）
+                    this.stateText.GetComponent<Text>().text = "CLEAR!!";
+
+
+                    //コインに衝突した場合（追加）
+                    if (other.gameObject.tag == "CoinTag")
                     {
-                        this.isEnd = true;
+                        //接触したコインのオブジェクトを破棄（追加）
+                        Destroy(other.gameObject);
                     }
 
-
-
-
                 }
+
             }
+
+
         }
+    
+        
 
 
 
@@ -191,4 +212,6 @@ public class UnityChanController : MonoBehaviour
         // Update is called once per frame
 
 
-    }
+    
+
+
