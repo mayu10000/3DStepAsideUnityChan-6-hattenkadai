@@ -45,8 +45,12 @@ public class UnityChanController : MonoBehaviour
     private GameObject stateText;
 
 
+    //スコアを表示するテキスト（追加）
+    private GameObject scoreText;
+    //得点（追加）
+    private int score = 0;
 
-
+    
 
 
     // Use this for initialization
@@ -69,6 +73,12 @@ public class UnityChanController : MonoBehaviour
 
         //シーン中のstateTextオブジェクトを取得（追加）
         this.stateText = GameObject.Find("GameResultText");
+
+
+        //シーン中のscoreTextオブジェクトを取得（追加）
+        this.scoreText = GameObject.Find("ScoreText");
+
+
 
     }
 
@@ -152,10 +162,22 @@ public class UnityChanController : MonoBehaviour
 
 
                     //コインに衝突した場合（追加）
-                    if (other.gameObject.tag == "CoinTag")
-                    {
-                        //接触したコインのオブジェクトを破棄（追加）
-                        Destroy(other.gameObject);
+                    if (other.gameObject.tag == "CoinTag")      {
+
+
+                // スコアを加算(追加)
+                this.score += 10;
+
+                //ScoreText獲得した点数を表示(追加)
+                this.scoreText.GetComponent<Text>().text = "Score " + this.score + "pt";
+
+
+
+
+
+
+                //接触したコインのオブジェクトを破棄（追加）
+                Destroy(other.gameObject);
                     }
 
                 }
