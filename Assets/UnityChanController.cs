@@ -50,7 +50,15 @@ public class UnityChanController : MonoBehaviour
     //得点（追加）
     private int score = 0;
 
-    
+
+
+    //左ボタン押下の判定（追加）
+    private bool isLButtonDown = false;
+    //右ボタン押下の判定（追加）
+    private bool isRButtonDown = false;
+
+
+
 
 
     // Use this for initialization
@@ -107,6 +115,9 @@ public class UnityChanController : MonoBehaviour
         this.myRigidbody.AddForce(this.transform.forward * this.forwardForce);
 
 
+
+
+
         //Unityちゃんを矢印キーまたはボタンに応じて左右に移動させる（追加）
         if (Input.GetKey(KeyCode.LeftArrow) && -this.movableRange < this.transform.position.x)
         {
@@ -129,40 +140,52 @@ public class UnityChanController : MonoBehaviour
         //ジャンプしていない時にスペースが押されたらジャンプする（追加）
         if (Input.GetKeyDown(KeyCode.Space) && this.transform.position.y < 0.5f)
         {
+
             //ジャンプアニメを再生（追加）
             this.myAnimator.SetBool("Jump", true);
             //Unityちゃんに上方向の力を加える（追加）
             this.myRigidbody.AddForce(this.transform.up * this.upForce);
 
 
+            
         }
     }
 
 
-            void OnTriggerEnter(Collider other)
+    //トリガーモードで他のオブジェクトと接触した場合の処理
+    void OnTriggerEnter(Collider other)
+    {
+
+        //障害物に衝突した場合
+        if (other.gameObject.tag == "CarTag" || other.gameObject.tag == "TrafficConeTag")
+        {
+            this.isEnd = true;
+            //stateTextにGAME OVERを表示（追加）
+            this.stateText.GetComponent<Text>().text = "GAME OVER";
+        }
+
+
+        //ゴール地点に到達した場合（追加）
+        if (other.gameObject.tag == "GoalTag")
+        {
+            this.isEnd = true;
+
+
+            //stateTextにGAME CLEARを表示（追加）
+            this.stateText.GetComponent<Text>().text = "CLEAR!!";
+
+
+          //コインに衝突した場合（追加）
+            if (other.gameObject.tag == "CoinTag")
             {
 
-                                //障害物に衝突した場合
-                if (other.gameObject.tag == "CarTag" || other.gameObject.tag == "TrafficConeTag")
-                {
-                    this.isEnd = true;
-                    //stateTextにGAME OVERを表示（追加）
-                    this.stateText.GetComponent<Text>().text = "GAME OVER";
-                }
 
 
-                //ゴール地点に到達した場合（追加）
-                if (other.gameObject.tag == "GoalTag")
-                {
-                    this.isEnd = true;
+                //パーティクルを再生（追加）
+                GetComponent<ParticleSystem>().Play();
 
 
-                    //stateTextにGAME CLEARを表示（追加）
-                    this.stateText.GetComponent<Text>().text = "CLEAR!!";
 
-
-                    //コインに衝突した場合（追加）
-                    if (other.gameObject.tag == "CoinTag")      {
 
 
                 // スコアを加算(追加)
@@ -173,20 +196,52 @@ public class UnityChanController : MonoBehaviour
 
 
 
-
-
-
                 //接触したコインのオブジェクトを破棄（追加）
                 Destroy(other.gameObject);
+            }
+        }
+    }
+
+
+                    //ジャンプボタンを押した場合の処理（追加）
+                    public void GetMyJumpButtonDown()
+                    {
+                        if (this.transform.position.y < 0.5f)
+                        {
+                            this.myAnimator.SetBool("Jump", true);
+                            this.myRigidbody.AddForce(this.transform.up * this.upForce);
+                        }
+                    }
+
+                    //左ボタンを押し続けた場合の処理（追加）
+                    public void GetMyLeftButtonDown()
+                    {
+                        this.isLButtonDown = true;
+                    }
+                    //左ボタンを離した場合の処理（追加）
+                    public void GetMyLeftButtonUp()
+                    {
+                        this.isLButtonDown = false;
+                    }
+
+                    //右ボタンを押し続けた場合の処理（追加）
+                    public void GetMyRightButtonDown()
+                    {
+                        this.isRButtonDown = true;
+                    }
+                    //右ボタンを離した場合の処理（追加）
+                    public void GetMyRightButtonUp()
+                    {
+                        this.isRButtonDown = false;
+
+
                     }
 
                 }
 
-            }
+            
 
-
-        }
-    
+           
         
 
 
