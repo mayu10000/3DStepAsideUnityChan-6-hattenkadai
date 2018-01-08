@@ -175,6 +175,10 @@ public class UnityChanController : MonoBehaviour
             this.stateText.GetComponent<Text>().text = "CLEAR!!";
 
 
+        }
+
+
+
           //コインに衝突した場合（追加）
             if (other.gameObject.tag == "CoinTag")
             {
@@ -184,7 +188,7 @@ public class UnityChanController : MonoBehaviour
                 //パーティクルを再生（追加）
                 GetComponent<ParticleSystem>().Play();
 
-
+               
 
 
 
@@ -200,7 +204,7 @@ public class UnityChanController : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
-    }
+    
 
 
                     //ジャンプボタンを押した場合の処理（追加）
