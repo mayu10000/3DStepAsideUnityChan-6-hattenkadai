@@ -797,7 +797,7 @@ GameObject:
   - component: {fileID: 475993774}
   - component: {fileID: 475993773}
   m_Layer: 5
-  m_Name: Scoretext
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2128,7 +2128,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1350023982
+  randomSeed: -81369425
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5831,6 +5831,10 @@ Prefab:
     - target: {fileID: 4932763500301708, guid: 3d7c08644154e904a9fe861bf5e50547, type: 2}
       propertyPath: m_RootOrder
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511997968210232, guid: 3d7c08644154e904a9fe861bf5e50547, type: 2}
+      propertyPath: m_TagString
+      value: TrafficConeTag
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3d7c08644154e904a9fe861bf5e50547, type: 2}
