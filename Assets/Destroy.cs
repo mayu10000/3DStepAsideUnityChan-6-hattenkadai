@@ -1,18 +1,23 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+// using System.Collections.Generic;
 using UnityEngine;
 
 public class Destroy : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    private object unitychan;
+
+    public float difference { get; private set; }
+
+
+    // Use this for initialization
+    void Start () {
 
         this.difference = unitychan.transform.position.z - this.transform.position.z;
 
     }
 
     // Update is called once per frame
-    void Update()  ｛
+    void Update() { 
 
         //  画面外に出たら破壊する
 
