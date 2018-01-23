@@ -99,8 +99,19 @@ public class UnityChanController : MonoBehaviour
     {
 
 
-        //ゲーム終了ならUnityちゃんの動きを減衰する（追加）
-        if (this.isEnd)
+        //  画面外に出たら破壊する
+
+       // if (transform.position.y < -5.0f)
+
+
+       //  {
+       //     Destroy(gameObject);
+           
+       //   }
+
+
+            //ゲーム終了ならUnityちゃんの動きを減衰する（追加）
+            if (this.isEnd)
         {
             this.forwardForce *= this.coefficient;
             this.turnForce *= this.coefficient;

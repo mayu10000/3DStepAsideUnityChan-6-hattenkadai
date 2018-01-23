@@ -24,7 +24,11 @@ public class MyCameraController : MonoBehaviour {
         //Unityちゃんとカメラの位置（z座標）の差を求める
         this.difference = unitychan.transform.position.z - this.transform.position.z;
 
-        
+
+        //  かめらとの距離の差は
+        Debug.Log( this.difference) ;
+
+
     }
 
     // Update is called once per frame
