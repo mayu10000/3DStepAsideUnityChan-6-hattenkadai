@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Destroy : MonoBehaviour {
 
-    private object unitychan;
+    // private object unitychan;
+
+    public GameObject unitychan;
+
 
     public float difference { get; private set; }
 

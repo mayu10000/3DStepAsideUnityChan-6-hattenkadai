@@ -11,8 +11,12 @@ public class MyCameraController : MonoBehaviour {
 
 
     //Unityちゃんのオブジェクト
-    private GameObject unitychan;
+     private GameObject unitychan;
+
+    // public GameObject unitychan ; 
+
     //Unityちゃんとカメラの距離
+
     private float difference;
 
 
