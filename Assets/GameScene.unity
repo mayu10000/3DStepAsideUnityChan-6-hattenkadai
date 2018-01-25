@@ -1580,6 +1580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a825910db14bf14fa539eff0728aac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitychan: {fileID: 0}
 --- !u!1 &1382867615 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1314744624363456, guid: 951f1859563b7a049b7419aedeb18017,
@@ -1596,6 +1597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a825910db14bf14fa539eff0728aac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitychan: {fileID: 0}
 --- !u!1 &1389182488
 GameObject:
   m_ObjectHideFlags: 0
@@ -2163,7 +2165,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1161465683
+  randomSeed: 720194464
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5554,6 +5556,18 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &1802438009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1802438000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a825910db14bf14fa539eff0728aac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitychan: {fileID: 0}
 --- !u!1 &1820164654
 GameObject:
   m_ObjectHideFlags: 0
