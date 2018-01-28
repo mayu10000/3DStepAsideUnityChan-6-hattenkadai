@@ -15,11 +15,13 @@ public class Destroy : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        this.difference = unitychan.transform.position.z - this.transform.position.z;
+        this.unitychan = GameObject.Find("unitychan");
 
-        // this.unitychan = GameObject.Find("unitychan");
 
-        unitychan = GameObject.Find("unitychan");
+    //    this.difference = unitychan.transform.position.z - this.transform.position.z;
+
+        
+        //unitychan = GameObject.Find("unitychan");
 
     }
 
@@ -50,9 +52,13 @@ public class Destroy : MonoBehaviour {
 
         
 
-        if (unitychan.transform.position.z - gameObject.transform.position.z  >  10.0f)
+        if (unitychan.transform.position.z - gameObject.transform.position.z  >  9.0f)
 
-                    {
+
+         //   if (gameObject.transform.position.z < (unitychan.transform.position.z - 7f))
+
+
+            {
             Destroy(gameObject);
 
         }
